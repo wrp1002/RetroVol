@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Enabled</string>
+			<key>key</key>
+			<string>kEnabled</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.wrp1002.retrovol</string>
+			<key>PostNotification</key>
+			<string>com.wrp1002.retrovol/ReloadPrefs</string>
+		</dict>
+
+
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Appearence</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Show Label</string>
+			<key>key</key>
+			<string>kShowLabel</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.wrp1002.retrovol</string>
+			<key>PostNotification</key>
+			<string>com.wrp1002.retrovol/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Set Volume Bar Color</string>
+			<key>id</key>
+			<string>kBarColor</string>
+			<key>action</key>
+			<string>showBarColorPicker</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Show Background</string>
+			<key>key</key>
+			<string>kShowBackground</string>
+			<key>id</key>
+			<string>kShowBackground</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.wrp1002.retrovol</string>
+			<key>PostNotification</key>
+			<string>com.wrp1002.retrovol/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Rounded Corners</string>
+			<key>key</key>
+			<string>kBackgroundRoundCorners</string>
+			<key>id</key>
+			<string>kBackgroundRoundCorners</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.wrp1002.retrovol</string>
+			<key>PostNotification</key>
+			<string>com.wrp1002.retrovol/ReloadPrefs</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Set background color</string>
+			<key>id</key>
+			<string>kBackgroundColor</string>
+			<key>action</key>
+			<string>showBackgroundColorPicker</string>
+		</dict>
+
+
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Timeout</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>key</key>
+			<string>kTimeout</string>
+			<key>min</key>
+			<real>0.0</real>
+			<key>max</key>
+			<real>5.0</real>
+			<key>showValue</key>
+			<true/>
+			<key>isSegmented</key>
+			<false/>
+			<key>default</key>
+			<real>2.0</real>
+			<key>defaults</key>
+			<string>com.wrp1002.retrovol</string>
+			<key>PostNotification</key>
+			<string>com.wrp1002.retrovol/ReloadPrefs</string>
+		</dict>
+
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Y Position</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>key</key>
+			<string>kYPos</string>
+			<key>min</key>
+			<real>0</real>
+			<key>max</key>
+			<real>1</real>
+			<key>showValue</key>
+			<true/>
+			<key>isSegmented</key>
+			<false/>
+			<key>default</key>
+			<real>0.0</real>
+			<key>defaults</key>
+			<string>com.wrp1002.retrovol</string>
+			<key>PostNotification</key>
+			<string>com.wrp1002.retrovol/ReloadPrefs</string>
+		</dict>
+
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>X Position</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>key</key>
+			<string>kXPos</string>
+			<key>min</key>
+			<real>-1.0</real>
+			<key>max</key>
+			<real>1.0</real>
+			<key>showValue</key>
+			<true/>
+			<key>isSegmented</key>
+			<false/>
+			<key>default</key>
+			<real>0.0</real>
+			<key>defaults</key>
+			<string>com.wrp1002.retrovol</string>
+			<key>PostNotification</key>
+			<string>com.wrp1002.retrovol/ReloadPrefs</string>
+		</dict>
+
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Scale</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>key</key>
+			<string>kScale</string>
+			<key>min</key>
+			<real>0.1</real>
+			<key>max</key>
+			<real>2.0</real>
+			<key>showValue</key>
+			<true/>
+			<key>isSegmented</key>
+			<false/>
+			<key>default</key>
+			<real>1.0</real>
+			<key>defaults</key>
+			<string>com.wrp1002.retrovol</string>
+			<key>PostNotification</key>
+			<string>com.wrp1002.retrovol/ReloadPrefs</string>
+		</dict>
+
+
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Respringing is NOT needed for changes to take effect</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Reset all settings</string>
+			<key>action</key>
+			<string>Reset</string>
+			<key>isDestructive</key>
+			<true/>
+			<key>confirmation</key>
+			<dict>
+				<key>prompt</key>
+				<string>Are you sure? This will respring your device.</string>
+				<key>title</key>
+				<string>Reset!</string>
+				<key>cancelTitle</key>
+				<string>Cancel</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Respring</string>
+			<key>action</key>
+			<string>Respring</string>
+		</dict>
+
+
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Developer</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Email Me</string>
+			<key>action</key>
+			<string>OpenEmail</string>
+			<key>icon</key>
+			<string>email.png</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Reddit</string>
+			<key>action</key>
+			<string>OpenReddit</string>
+			<key>icon</key>
+			<string>reddit.png</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Source Code</string>
+			<key>action</key>
+			<string>OpenGithub</string>
+			<key>icon</key>
+			<string>github.png</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Donate</string>
+			<key>action</key>
+			<string>OpenPaypal</string>
+			<key>icon</key>
+			<string>paypal.png</string>
+		</dict>
+
+
+	</array>
+
+	<key>title</key>
+	<string>RetroVol</string>
+</dict>
+</plist>

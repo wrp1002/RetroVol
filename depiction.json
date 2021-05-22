@@ -1,0 +1,12 @@
+{
+	"title": "RetroVol",
+	"description": "RetroVol gives you an epic volume bar that looks like it's from an old TV. Plenty of customization options included",
+	"compatibility": "Made for iOS 14",
+	"screenshots": ["screenshot1.gif", "screenshot2.png", "screenshot3.png", "screenshot4.png"],
+	"changelog": [
+		{
+			"version": "1.0.0",
+			"changes": ["Initial Release"]
+		}
+	]
+}
