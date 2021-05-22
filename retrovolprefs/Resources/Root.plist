@@ -152,7 +152,7 @@
 			<key>isSegmented</key>
 			<false/>
 			<key>default</key>
-			<real>0.0</real>
+			<real>0.02</real>
 			<key>defaults</key>
 			<string>com.wrp1002.retrovol</string>
 			<key>PostNotification</key>

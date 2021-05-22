@@ -405,7 +405,7 @@ static RetroVol *__strong retroVol;
 
 	[prefs registerFloat:&delayTime default:1.0f forKey:@"kTimeout"];
 	[prefs registerFloat:&xPos default:0.0f forKey:@"kXPos"];
-	[prefs registerFloat:&yPos default:0.0f forKey:@"kYPos"];
+	[prefs registerFloat:&yPos default:0.02f forKey:@"kYPos"];
 	[prefs registerFloat:&scale default:1.0f forKey:@"kScale"];
 
 	[prefs registerObject:&barColorString default:@"#00ff00" forKey:@"kBarColor"];
