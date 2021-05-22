@@ -85,7 +85,7 @@
 
 -(void)OpenGithub {
 	UIApplication *application = [UIApplication sharedApplication];
-	NSURL *URL = [NSURL URLWithString:@"https://github.com/wrp1002/TVLock"];
+	NSURL *URL = [NSURL URLWithString:@"https://github.com/wrp1002/RetroVol"];
 	[application openURL:URL options:@{} completionHandler:^(BOOL success) {
 		if (success) {
 			NSLog(@"Opened url");
