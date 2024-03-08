@@ -3,19 +3,34 @@
 @implementation Debug
 	static bool springboardReady = false;
 
-	+(UIWindow*)GetKeyWindow {
-		UIWindow        *foundWindow = nil;
-		NSArray         *windows = [[UIApplication sharedApplication]windows];
-		for (UIWindow   *window in windows) {
-			if (window.isKeyWindow) {
-				foundWindow = window;
-				break;
+	+(UIWindow*) GetKeyWindow {
+		if (@available(iOS 13, *)) {
+			NSSet *connectedScenes = [UIApplication sharedApplication].connectedScenes;
+			for (UIScene *scene in connectedScenes) {
+				if ([scene isKindOfClass:[UIWindowScene class]]) {
+					UIWindowScene *windowScene = (UIWindowScene *)scene;
+					for (UIWindow *window in windowScene.windows) {
+						if (window.isKeyWindow) {
+							return window;
+						}
+					}
+				}
+			}
+		} else {
+	#pragma clang diagnostic push
+	#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+			NSArray		 *windows = [[UIApplication sharedApplication] windows];
+	#pragma clang diagnostic pop
+			for (UIWindow   *window in windows) {
+				if (window.isKeyWindow) {
+					return window;
+				}
 			}
 		}
-		return foundWindow;
+		return nil;
 	}
 
-	//	Shows an alert box. Used for debugging 
+	//	Shows an alert box. Used for debugging
 	+(void)ShowAlert:(NSString *)msg {
 		if (!springboardReady) return;
 
@@ -30,7 +45,7 @@
 									style:UIAlertActionStyleDefault
 									handler:^(UIAlertAction * action) {
 										//Handle dismiss button action here
-										
+
 									}];
 
 		//Add your buttons to alert controller

@@ -1,12 +1,11 @@
 #import <Cephei/HBPreferences.h>
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-#import "Debug.h"
+//#import "Debug.h"
 #import "libcolorpicker.h"
 
 #define TWEAK_NAME @"RetroVol"
 #define BUNDLE [NSString stringWithFormat:@"com.wrp1002.%@", [TWEAK_NAME lowercaseString]]
-#define settingsPath [NSString stringWithFormat:@"/var/mobile/Library/Preferences/com.wrp1002.%@.plist", [TWEAK_NAME lowercaseString]]
 
 //	=========================== Preference vars ===========================
 
@@ -21,10 +20,10 @@ CGFloat scale = 1.0;
 NSString *barColorString = @"#00ff00";
 NSString *backgroundColorString = @"#7777777";
 
-const int barCount = 15;
-int barWidth = 18;
-int barHeight = 45;
-int fontSize = 32;
+const NSInteger barCount = 15;
+NSInteger barWidth = 18;
+NSInteger barHeight = 45;
+NSInteger fontSize = 32;
 
 HBPreferences *prefs;
 
@@ -120,7 +119,7 @@ HBPreferences *prefs;
 				label = [[UILabel alloc] initWithFrame:CGRectMake(0, maxLabelHeight / 2 - fontSize / 2 - 5, 300, maxLabelHeight)];
 				[label setTextColor:[UIColor greenColor]];
 				[label setBackgroundColor:[UIColor clearColor]];
-				[label setFont:[UIFont fontWithName: @"Verdana-Bold" size:fontSize]]; 
+				[label setFont:[UIFont fontWithName: @"Verdana-Bold" size:fontSize]];
 				[label setText:@"Volume"];
 				[mainView addSubview:label];
 				// Arial-BoldMT
@@ -138,15 +137,13 @@ HBPreferences *prefs;
 				[self updateSettings];
 
 			} @catch (NSException *e) {
-				[Debug LogException:e];
+				//[Debug LogException:e];
 			}
 		}
 		return self;
 	}
 
 	-(void)show {
-		[Debug Log:@"retroVol.show()"];
-		
 		@try {
 			//	Show animation window
 			[self updateOrientation];
@@ -156,14 +153,11 @@ HBPreferences *prefs;
 
 		}
 		@catch (NSException *e) {
-			[Debug LogException:e];
-		}	
+			//[Debug LogException:e];
+		}
 	}
 
 	-(void)showWithVolume:(float)volume category:(NSString *)newCategory {
-		[Debug Log:@"retroVol.show()"];
-		[Debug Log:[NSString stringWithFormat:@"%@", newCategory]];
-
 		[self setVolume:volume];
 		[self setCategory:newCategory];
 		[self show];
@@ -177,7 +171,6 @@ HBPreferences *prefs;
 
 	-(void)setVolume:(float)volume {
 		int count = volume * barCount;
-		[Debug Log:[NSString stringWithFormat:@"count: %i %f", count, volume]];
 
 		for (int i = 0; i < barCount; i++) {
 			if (i < count || (i == 0 && volume > 0))
@@ -343,7 +336,6 @@ static RetroVol *__strong retroVol;
 		//	Called when springboard is finished launching
 		-(void)applicationDidFinishLaunching:(id)application {
 			%orig;
-			[Debug SpringBoardReady];
 			retroVol = [[RetroVol alloc] init];
 		}
 
@@ -352,10 +344,6 @@ static RetroVol *__strong retroVol;
 	%hook SBVolumeControl
 		// Exists only on iOS 13+
 		- (void)_presentVolumeHUDWithVolume:(float)volume {
-			[Debug Log:[NSString stringWithFormat:@"_presentVolumeHUDWithVolume: %f, %@", volume, [self lastDisplayedCategory]]];
-			[Debug Log:@"Showing"];
-			[Debug Log:[NSString stringWithFormat:@"Enabled: %i", enabled]];
-
 			if (enabled)
 				[retroVol showWithVolume:volume category:[self lastDisplayedCategory]];
 			else
@@ -366,7 +354,6 @@ static RetroVol *__strong retroVol;
 
 	%hook SBElasticVolumeViewController
 		-(void)viewWillAppear:(BOOL)arg1 {
-			[Debug Log:[NSString stringWithFormat:@"viewWillAppear: %i", arg1]];
 			if (!enabled)
 				%orig;
 		}
@@ -375,13 +362,11 @@ static RetroVol *__strong retroVol;
 
 	%hook SBRingerControl
 		-(void)activateRingerHUD:(int)arg1 withInitialVolume:(float)arg2 fromSource:(unsigned long long)arg3 {
-			[Debug Log:[NSString stringWithFormat:@"activateRingerHUD: %i  %f  %llu", arg1, arg2, arg3]];
 			if (!enabled)
 				%orig;
 		}
 
 		-(void)setRingerMuted:(BOOL)arg1 {
-			[Debug Log:[NSString stringWithFormat:@"setringermuted Enabled: %i", arg1]];
 			[retroVol setMuted:arg1];
 			[retroVol setCategory:@"Ringtone"];
 			[retroVol show];
@@ -395,9 +380,8 @@ static RetroVol *__strong retroVol;
 //	=========================== Constructor stuff ===========================
 
 %ctor {
-	[Debug Log:[NSString stringWithFormat:@"============== %@ started ==============", TWEAK_NAME]];
 	prefs = [[HBPreferences alloc] initWithIdentifier:BUNDLE];
-	
+
 	[prefs registerBool:&enabled default:YES forKey:@"kEnabled"];
 	[prefs registerBool:&showLabel default:YES forKey:@"kShowLabel"];
 	[prefs registerBool:&showBackground default:NO forKey:@"kShowBackground"];
@@ -410,9 +394,8 @@ static RetroVol *__strong retroVol;
 
 	[prefs registerObject:&barColorString default:@"#00ff00" forKey:@"kBarColor"];
 	[prefs registerObject:&backgroundColorString default:@"#777777" forKey:@"kBackgroundColor"];
-	
+
 	[prefs registerPreferenceChangeBlock:^{
-		[Debug Log:@"Updating settings"];
 		[retroVol updateSettings];
 	}];
 
