@@ -10,10 +10,10 @@ PACKAGE_VERSION = $(THEOS_PACKAGE_BASE_VERSION)
 
 ifeq ($(THEOS_PACKAGE_SCHEME),rootless)
 	ARCHS = arm64 arm64e
-	TARGET = iphone:clang:latest:15.0
+	TARGET = iphone:clang:15.5:15.0
 else
 	ARCHS = armv7 armv7s arm64 arm64e
-	TARGET = iphone:clang:latest:7.0
+	TARGET = iphone:clang:14.2:8.0
 endif
 
 SDKVERSION = 16.5
