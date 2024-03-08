@@ -39,43 +39,9 @@
 
 -(void)viewWillAppear:(BOOL)animated {
 	[self clearCache];
-	[self reload];  
+	[self reload];
 	[super viewWillAppear:animated];
 	[self reloadSpecifiers];
-}
-
--(void)showBarColorPicker {
-	HBPreferences *prefs = [[HBPreferences alloc] initWithIdentifier:BUNDLE];
-	UIColor *color = LCPParseColorString([prefs objectForKey:@"kBarColor"], @"#00ff00");
-	PFColorAlert *alert = [PFColorAlert colorAlertWithStartColor:color showAlpha:YES];
-
-	// show alert and set completion callback
-	[alert displayWithCompletion:
-		^void (UIColor *pickedColor) {
-			NSString *hexString = [UIColor hexFromColor:pickedColor];
-			hexString = [hexString stringByAppendingFormat:@":%f", pickedColor.alpha];
-			NSLog(@"RetroVol: Color ipcker update!, %@", hexString);
-			[prefs setObject:hexString forKey:@"kBarColor"];
-			[prefs synchronize];
-			CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("com.wrp1002.retrovol/ReloadPrefs"), nil, nil, true);
-		}];
-}
-
--(void)showBackgroundColorPicker {
-	HBPreferences *prefs = [[HBPreferences alloc] initWithIdentifier:BUNDLE];
-	UIColor *color = LCPParseColorString([prefs objectForKey:@"kBackgroundColor"], @"#777777");
-	PFColorAlert *alert = [PFColorAlert colorAlertWithStartColor:color showAlpha:YES];
-
-	// show alert and set completion callback
-	[alert displayWithCompletion:
-		^void (UIColor *pickedColor) {
-			NSString *hexString = [UIColor hexFromColor:pickedColor];
-			hexString = [hexString stringByAppendingFormat:@":%f", pickedColor.alpha];
-			NSLog(@"RetroVol: Color ipcker update!, %@", hexString);
-			[prefs setObject:hexString forKey:@"kBackgroundColor"];
-			[prefs synchronize];
-			CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("com.wrp1002.retrovol/ReloadPrefs"), nil, nil, true);
-		}];
 }
 
 
@@ -126,7 +92,8 @@
 -(void)Reset {
 	HBPreferences *prefs = [[HBPreferences alloc] initWithIdentifier:BUNDLE];
 	[prefs removeAllObjects];
-	[self Respring];
+	[self reloadSpecifiers];
+	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR(BUNDLE_NOTIFY), nil, nil, true);
 }
 
 @end

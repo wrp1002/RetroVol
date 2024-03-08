@@ -7,6 +7,7 @@
 
 #define TWEAK_NAME @"RetroVol"
 #define BUNDLE [NSString stringWithFormat:@"com.wrp1002.%@", [TWEAK_NAME lowercaseString]]
+#define BUNDLE_NOTIFY "com.wrp1002.RetroVol/ReloadPrefs"
 
 @interface PSListController (iOS12Plus)
 -(void)clearCache;

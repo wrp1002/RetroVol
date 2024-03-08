@@ -50,13 +50,23 @@
 
 		<dict>
 			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>label</key>
-			<string>Set Volume Bar Color</string>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>HBColorPickerTableCell</string>
 			<key>id</key>
 			<string>kBarColor</string>
-			<key>action</key>
-			<string>showBarColorPicker</string>
+			<key>key</key>
+			<string>kBarColor</string>
+			<key>default</key>
+			<string>#00ff00</string>
+			<key>defaults</key>
+			<string>com.wrp1002.retrovol</string>
+			<key>label</key>
+			<string>Volume Bar Color</string>
+			<key>showAlphaSlider</key>
+			<true/>
+			<key>PostNotification</key>
+			<string>com.wrp1002.retrovol/ReloadPrefs</string>
 		</dict>
 
 		<dict>
@@ -93,13 +103,23 @@
 		</dict>
 		<dict>
 			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>label</key>
-			<string>Set background color</string>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>HBColorPickerTableCell</string>
 			<key>id</key>
 			<string>kBackgroundColor</string>
-			<key>action</key>
-			<string>showBackgroundColorPicker</string>
+			<key>key</key>
+			<string>kBackgroundColor</string>
+			<key>default</key>
+			<string>#777777</string>
+			<key>defaults</key>
+			<string>com.wrp1002.retrovol</string>
+			<key>label</key>
+			<string>Background Color</string>
+			<key>showAlphaSlider</key>
+			<true/>
+			<key>PostNotification</key>
+			<string>com.wrp1002.retrovol/ReloadPrefs</string>
 		</dict>
 
 
@@ -235,7 +255,7 @@
 			<key>confirmation</key>
 			<dict>
 				<key>prompt</key>
-				<string>Are you sure? This will respring your device.</string>
+				<string>Are you sure you want to reset all settings?</string>
 				<key>title</key>
 				<string>Reset!</string>
 				<key>cancelTitle</key>
@@ -249,6 +269,15 @@
 			<string>Respring</string>
 			<key>action</key>
 			<string>Respring</string>
+			<key>confirmation</key>
+			<dict>
+				<key>prompt</key>
+				<string>Are you sure? This will respring your device.</string>
+				<key>title</key>
+				<string>Reset!</string>
+				<key>cancelTitle</key>
+				<string>Cancel</string>
+			</dict>
 		</dict>
 
 
