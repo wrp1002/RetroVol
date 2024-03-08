@@ -9,10 +9,10 @@
 
 //	=========================== Preference vars ===========================
 
-bool enabled;
-bool showLabel;
-bool showBackground;
-bool backgroundRoundCorners;
+BOOL enabled;
+BOOL showLabel;
+BOOL showBackground;
+BOOL backgroundRoundCorners;
 CGFloat delayTime = 2.0f;
 CGFloat yPos = 0;
 CGFloat xPos = 0;
