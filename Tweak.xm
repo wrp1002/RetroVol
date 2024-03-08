@@ -104,12 +104,13 @@ HBPreferences *prefs;
 				springboardWindow.windowLevel = UIWindowLevelAlert + 2;
 				[springboardWindow setUserInteractionEnabled:NO];
 				[springboardWindow setBackgroundColor:[UIColor clearColor]];
+				springboardWindow.windowScene = [UIApplication sharedApplication].keyWindow.windowScene;
 
 				int height = 90;
 				float sidePadding = 20.0f;
 				float volumeWidth = springboardWindow.bounds.size.width - sidePadding;
 				float padding = (volumeWidth) / barCount;
-				
+
 				mainView = [[UIView alloc] initWithFrame:CGRectMake(sidePadding/2, springboardWindow.bounds.size.height - height, volumeWidth, height)];
 				[mainView setAlpha:1.0f];
 				[mainView setBackgroundColor:[UIColor clearColor]];
