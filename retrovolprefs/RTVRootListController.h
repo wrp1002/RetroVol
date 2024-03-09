@@ -2,12 +2,10 @@
 #import <Preferences/PSSpecifier.h>
 #import <Cephei/HBPreferences.h>
 #import <Cephei/HBRespringController.h>
-#import <spawn.h>
-#import "libcolorpicker.h"
 
 #define TWEAK_NAME @"RetroVol"
 #define BUNDLE [NSString stringWithFormat:@"com.wrp1002.%@", [TWEAK_NAME lowercaseString]]
-#define BUNDLE_NOTIFY "com.wrp1002.RetroVol/ReloadPrefs"
+#define BUNDLE_NOTIFY "com.wrp1002.retrovol/ReloadPrefs"
 
 @interface PSListController (iOS12Plus)
 -(void)clearCache;
