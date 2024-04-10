@@ -274,7 +274,7 @@
 				<key>prompt</key>
 				<string>Are you sure? This will respring your device.</string>
 				<key>title</key>
-				<string>Reset!</string>
+				<string>Respring!</string>
 				<key>cancelTitle</key>
 				<string>Cancel</string>
 			</dict>

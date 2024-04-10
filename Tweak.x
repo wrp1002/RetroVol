@@ -3,6 +3,7 @@
 #import <UIKit/UIKit.h>
 //#import "Debug.h"
 #import "libcolorpicker.h"
+#import "Tweak.h"
 
 #define TWEAK_NAME @"RetroVol"
 #define BUNDLE [NSString stringWithFormat:@"com.wrp1002.%@", [TWEAK_NAME lowercaseString]]
@@ -29,6 +30,10 @@ HBPreferences *prefs;
 
 
 //	=========================== Classes / Functions ===========================
+
+
+// For @available to work. needs commented out for github to compile
+//int __isOSVersionAtLeast(int major, int minor, int patch) { NSOperatingSystemVersion version; version.majorVersion = major; version.minorVersion = minor; version.patchVersion = patch; return [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:version]; }
 
 
 @interface RetroVolBar : UIView {
@@ -104,7 +109,12 @@ HBPreferences *prefs;
 				springboardWindow.windowLevel = UIWindowLevelAlert + 2;
 				[springboardWindow setUserInteractionEnabled:NO];
 				[springboardWindow setBackgroundColor:[UIColor clearColor]];
-				springboardWindow.windowScene = [UIApplication sharedApplication].keyWindow.windowScene;
+				if (@available(iOS 13.0, *)) {
+					springboardWindow.windowScene = [UIApplication sharedApplication].keyWindow.windowScene;
+				}
+				else {
+					springboardWindow.screen = [UIScreen mainScreen];
+				}
 
 				int height = 90;
 				float sidePadding = 20.0f;
@@ -284,45 +294,7 @@ HBPreferences *prefs;
 @end
 
 
-@interface SBVolumeControl : NSObject {
-	unsigned long long _mode;
-	BOOL _hudHandledLastVolumeChange;
-	BOOL _volumeDownButtonIsDown;
-	BOOL _volumeUpButtonIsDown;
-}
-@property (nonatomic,readonly) NSString * lastDisplayedCategory;
-- (void)_presentVolumeHUDWithVolume:(float)volume;
-- (void)_presentVolumeHUDWithMode:(int)mode volume:(float)volume;
--(void)hideVolumeHUDIfVisible;
--(void)volumeHUDViewControllerRequestsDismissal:(id)arg1 ;
-@end
 
-@interface SBElasticVolumeViewController : UIViewController {
-}
--(void)viewWillAppear:(BOOL)arg1 ;
-@end
-
-@interface SBRingerControl : NSObject {
-
-	BOOL _ringerMuted;
-	float _volume;
-}
-@property (assign,nonatomic) float volume;
--(void)setVolume:(float)arg1 ;
--(float)volume;
--(void)setRingerMuted:(BOOL)arg1 ;
--(BOOL)isRingerMuted;
--(void)nudgeUp:(BOOL)arg1 ;
--(BOOL)lastSavedRingerMutedState;
--(void)buttonReleased;
--(void)activateRingerHUDForVolumeChangeWithInitialVolume:(float)arg1 ;
--(void)setVolume:(float)arg1 forKeyPress:(BOOL)arg2 ;
--(void)activateRingerHUD:(int)arg1 withInitialVolume:(float)arg2 fromSource:(unsigned long long)arg3 ;
--(id)existingRingerHUDViewController;
--(void)hideRingerHUDIfVisible;
--(void)ringerHUDViewControllerWantsToBeDismissed:(id)arg1 ;
--(void)toggleRingerMute;
-@end
 
 
 static RetroVol *__strong retroVol;
@@ -330,10 +302,8 @@ static RetroVol *__strong retroVol;
 
 //	=========================== Hooks ===========================
 
-%group Hooks
-
+%group allVersionHooks
 	%hook SpringBoard
-
 		//	Called when springboard is finished launching
 		-(void)applicationDidFinishLaunching:(id)application {
 			%orig;
@@ -341,10 +311,14 @@ static RetroVol *__strong retroVol;
 		}
 
 	%end
+%end
+
+%group ios13AndUpHooks
 
 	%hook SBVolumeControl
 		// Exists only on iOS 13+
 		- (void)_presentVolumeHUDWithVolume:(float)volume {
+			//[Debug Log:@"_presentVolumeHUDWithVolume()"];
 			if (enabled)
 				[retroVol showWithVolume:volume category:[self lastDisplayedCategory]];
 			else
@@ -355,6 +329,7 @@ static RetroVol *__strong retroVol;
 
 	%hook SBElasticVolumeViewController
 		-(void)viewWillAppear:(BOOL)arg1 {
+			//[Debug Log:@"viewWillAppear()"];
 			if (!enabled)
 				%orig;
 		}
@@ -363,15 +338,66 @@ static RetroVol *__strong retroVol;
 
 	%hook SBRingerControl
 		-(void)activateRingerHUD:(int)arg1 withInitialVolume:(float)arg2 fromSource:(unsigned long long)arg3 {
+			//[Debug Log:@"activateRingerHUD()"];
 			if (!enabled)
 				%orig;
 		}
 
 		-(void)setRingerMuted:(BOOL)arg1 {
-			[retroVol setMuted:arg1];
-			[retroVol setCategory:@"Ringtone"];
-			[retroVol show];
+			//[Debug Log:@"setRingerMuted()"];
+			if (enabled) {
+				[retroVol setMuted:arg1];
+				[retroVol setCategory:@"Ringtone"];
+				[retroVol show];
+			}
 			%orig;
+		}
+	%end
+
+%end
+
+%group ios12AndUnderHooks
+
+	%hook VolumeControl
+		-(void)_presentVolumeHUDWithMode:(int)arg1 volume:(float)arg2 {
+			if (!enabled) {
+				%orig;
+				return;
+			}
+
+			//[Debug Log:@"_presentVolumeHUDWithMode()"];
+			//[Debug Log:[NSString stringWithFormat:@"arg1: %i  arg2:%f", arg1, arg2]];
+
+			// [self lastDisplayedCategory] always seems to return null, so figure it out manually here
+			NSString *category = (arg1 == 0 ? @"Volume" : @"Ringtone");
+			[retroVol showWithVolume:arg2 category:category];
+		}
+	%end
+
+	%hook SBRingerHUDController
+		+(void)activate:(int)arg1 {
+			//[Debug Log:@"SBRingerHUDController activate() "];
+			// Not calling %orig here makes setSilent not get called
+			// so just deal with the ringer popup appearing here
+			%orig;
+
+			if (enabled) {
+				[retroVol setCategory:@"Ringtone"];
+				[retroVol show];
+			}
+		}
+	%end
+
+	%hook SBRingerHUDView
+		-(void)setSilent:(BOOL)arg1 {
+			%orig;
+
+			if (enabled) {
+				//[Debug Log:@"setSilent"];
+				[retroVol setMuted:arg1];
+				[retroVol setCategory:@"Ringtone"];
+				[retroVol show];
+			}
 		}
 	%end
 
@@ -400,5 +426,12 @@ static RetroVol *__strong retroVol;
 		[retroVol updateSettings];
 	}];
 
-	%init(Hooks);
+	%init(allVersionHooks);
+
+	if (@available(iOS 13.0, *)) {
+		%init(ios13AndUpHooks);
+	}
+	else {
+		%init(ios12AndUnderHooks);
+	}
 }
