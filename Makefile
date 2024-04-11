@@ -19,7 +19,7 @@ SDKVERSION = 16.5
 
 TWEAK_NAME = RetroVol
 
-$(TWEAK_NAME)_FILES = Tweak.x
+$(TWEAK_NAME)_FILES = Tweak.x RetroVol.x RetroVolBar.x
 $(TWEAK_NAME)_CFLAGS = -fobjc-arc
 $(TWEAK_NAME)_EXTRA_FRAMEWORKS += Cephei
 $(TWEAK_NAME)_LIBRARIES = colorpicker
