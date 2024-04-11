@@ -52,7 +52,7 @@
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>label</key>
-			<string>Rotate with screen</string>
+			<string>Rotate With Screen</string>
 			<key>key</key>
 			<string>kLandscape</string>
 			<key>default</key>
