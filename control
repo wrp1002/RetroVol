@@ -1,6 +1,6 @@
 Package: com.wrp1002.retrovol
 Name: RetroVol
-Version: 1.2.0
+Version: 1.2.1
 Architecture: iphoneos-arm
 Description: Old TV volume bar!
 Maintainer: Wes <wes.hamster@gmail.com>
