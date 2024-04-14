@@ -171,8 +171,10 @@
 				self->springboardWindow.frame = CGRectMake(0, 0, CGRectGetWidth(screenBounds), CGRectGetHeight(screenBounds));
 				break;
 			case UIInterfaceOrientationPortraitUpsideDown:
-				self->springboardWindow.transform = CGAffineTransformMakeRotation(M_PI);
-				self->springboardWindow.frame = CGRectMake(0, 0, CGRectGetWidth(screenBounds), CGRectGetHeight(screenBounds));
+				if (upsideDownEnabled) {
+					self->springboardWindow.transform = CGAffineTransformMakeRotation(M_PI);
+					self->springboardWindow.frame = CGRectMake(0, 0, CGRectGetWidth(screenBounds), CGRectGetHeight(screenBounds));
+				}
 				break;
 			case UIInterfaceOrientationLandscapeLeft:
 				self->springboardWindow.transform = CGAffineTransformMakeRotation(-M_PI_2);

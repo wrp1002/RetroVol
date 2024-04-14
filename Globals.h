@@ -3,6 +3,7 @@ extern BOOL showLabel;
 extern BOOL showBackground;
 extern BOOL backgroundRoundCorners;
 extern BOOL landscapeEnabled;
+extern BOOL upsideDownEnabled;
 extern CGFloat delayTime;
 extern CGFloat yPos;
 extern CGFloat xPos;

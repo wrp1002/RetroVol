@@ -55,6 +55,25 @@
 			<string>Rotate With Screen</string>
 			<key>key</key>
 			<string>kLandscape</string>
+			<key>id</key>
+			<string>kLandscape</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.wrp1002.retrovol</string>
+			<key>PostNotification</key>
+			<string>com.wrp1002.retrovol/ReloadPrefs</string>
+		</dict>
+
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Rotate Upside Down</string>
+			<key>key</key>
+			<string>kUpsideDown</string>
+			<key>id</key>
+			<string>kUpsideDown</string>
 			<key>default</key>
 			<false/>
 			<key>defaults</key>

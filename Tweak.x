@@ -17,6 +17,7 @@ BOOL showLabel;
 BOOL showBackground;
 BOOL backgroundRoundCorners;
 BOOL landscapeEnabled;
+BOOL upsideDownEnabled;
 CGFloat delayTime = 2.0f;
 CGFloat yPos = 0;
 CGFloat xPos = 0;
@@ -162,6 +163,7 @@ static void prefsDidUpdate() {
 	[prefs registerBool:&showBackground default:NO forKey:@"kShowBackground"];
 	[prefs registerBool:&backgroundRoundCorners default:NO forKey:@"kBackgroundRoundCorners"];
 	[prefs registerBool:&landscapeEnabled default:NO forKey:@"kLandscape"];
+	[prefs registerBool:&upsideDownEnabled default:NO forKey:@"kUpsideDown"];
 
 	[prefs registerFloat:&delayTime default:1.0f forKey:@"kTimeout"];
 	[prefs registerFloat:&xPos default:0.0f forKey:@"kXPos"];

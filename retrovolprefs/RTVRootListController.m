@@ -7,7 +7,7 @@
 		_specifiers = [self loadSpecifiersFromPlistName:@"Root" target:self];
 	}
 
-	NSArray *chosenIDs = @[@"kBackgroundColor", @"kBackgroundRoundCorners"];
+	NSArray *chosenIDs = @[@"kBackgroundColor", @"kBackgroundRoundCorners", @"kUpsideDown"];
 	self.savedSpecifiers = (self.savedSpecifiers) ?: [[NSMutableDictionary alloc] init];
 	for(PSSpecifier *specifier in _specifiers) {
 		if([chosenIDs containsObject:[specifier propertyForKey:@"id"]])
@@ -27,6 +27,13 @@
 		else
 			[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"kBackgroundRoundCorners"], self.savedSpecifiers[@"kBackgroundColor"]] animated:YES];
 	}
+
+	if([key isEqualToString:@"kLandscape"]) {
+		if([value boolValue])
+			[self insertContiguousSpecifiers:@[self.savedSpecifiers[@"kUpsideDown"]] afterSpecifierID:@"kLandscape" animated:YES];
+		else
+			[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"kUpsideDown"]] animated:YES];
+	}
 }
 
 -(void)reloadSpecifiers {
@@ -35,6 +42,9 @@
 	HBPreferences *prefs = [[HBPreferences alloc] initWithIdentifier:BUNDLE];
 	if(![prefs boolForKey:@"kShowBackground"])
 		[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"kBackgroundRoundCorners"], self.savedSpecifiers[@"kBackgroundColor"]] animated:NO];
+
+	if(![prefs boolForKey:@"kLandscape"])
+		[self removeContiguousSpecifiers:@[self.savedSpecifiers[@"kUpsideDown"]] animated:NO];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
